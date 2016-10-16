@@ -9,12 +9,37 @@
         <link rel="icon" href="Resources/logo.ico" />
     </head>
 
-    <body>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">NULL - Hello World</a>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a href="#">Dashboard</a></li>
+            </ul>
+        </nav>
+
+        <nav class="navbar navbar-default navbar-static-left navbar-left" role="navigation">
+            <div class="navbar-header navbar-left">
+                <h4>Search By:</h4>
+                <ul>
+                    <li><a href="#/personForm">Person Details</a></li>
+                    <li><a href="#/emailForm">Email</a></li>
+                    <li><a href="#/facebookForm">Facebook Account</a></li>
+                    <li><a href="#/instagramForm">Instagram Account</a></li>
+                    <li><a href="#/twitterForm">Twitter Account</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <div ng-app="nullApp">
             <ng-view></ng-view>
         </div>
-    
-        <script type="text/javascript" src="Scripts/head.load.min.js"></script>
-        <script type="text/javascript" src="Assets/js/boot.js"></script>
-    </body>
+    </div>
+
+<script type="text/javascript" src="Scripts/head.load.min.js"></script>
+<script type="text/javascript" src="Assets/js/boot.js"></script>
+</body>
 </html>

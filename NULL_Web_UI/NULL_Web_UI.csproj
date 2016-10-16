@@ -66,12 +66,22 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\Home\Home.html" />
+    <Content Include="App\Components\Forms\EmailForm\EmailForm.html" />
+    <Content Include="App\Components\Forms\EmailForm\EmailFormController.js" />
+    <Content Include="App\Components\Forms\FacebookForm\FacebookForm.html" />
+    <Content Include="App\Components\Forms\FacebookForm\FacebookFormController.js" />
+    <Content Include="App\Components\Home\Home.html" />
+    <Content Include="App\Components\Home\HomeController.js" />
+    <Content Include="App\Components\Forms\InstagramForm\InstagramForm.html" />
+    <Content Include="App\Components\Forms\InstagramForm\InstagramFormController.js" />
+    <Content Include="App\Components\Forms\TwitterForm\TwitterForm.html" />
+    <Content Include="App\Components\Forms\TwitterForm\TwitterFormController.js" />
     <Content Include="App\main.js" />
-    <Content Include="App\PersonForm\PersonFormController.js" />
+    <Content Include="App\Components\Forms\PersonForm\PersonFormController.js" />
     <Content Include="packages.config" />
-    <Content Include="App\PersonForm\PersonForm.html" />
+    <Content Include="App\Components\Forms\PersonForm\PersonForm.html" />
     <Content Include="Resources\logo.ico" />
+    <Content Include="Scripts\Angular\angular-resource.min.js" />
     <Content Include="Scripts\Angular\angular-route.min.js" />
     <Content Include="Scripts\Angular\angular.min.js.map" />
     <Content Include="Scripts\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
