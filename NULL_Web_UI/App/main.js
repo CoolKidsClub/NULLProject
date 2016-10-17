@@ -16,7 +16,7 @@ mainApp.config(function ($routeProvider) {
 		})
         .when('/emailForm', {
         	templateUrl: '../App/Components/Forms/EmailForm/EmailForm.html',
-        	controller:  'EmailController'
+        	controller:  'EmailFormController'
         })
         .when('/phoneNumberForm', {
             templateUrl: '../App/Components/Forms/PhoneNumberForm/PhoneNumberForm.html',
@@ -48,6 +48,7 @@ mainApp.factory('PersonModel', function PersonModel() {
         FirstName: "",
         LastName: "",
         Email: "",
+        PhoneNumber: "",
         DateOfBirth: new Date("2000-01-01"),
         HomeTown: "",
         CurrentTown: "",

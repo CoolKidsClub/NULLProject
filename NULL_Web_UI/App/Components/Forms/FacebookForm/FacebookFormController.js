@@ -1,6 +1,7 @@
 ﻿angular.module('nullApp')
     .controller('FacebookFormController', FacebookFormController);
 
-function FacebookFormController($scope, $resource) {
+function FacebookFormController($scope, PersonModel) {
     $scope.message = "Hello Facebook";
+    $scope.person = PersonModel;
 };
