@@ -16,7 +16,11 @@ mainApp.config(function ($routeProvider) {
 		})
         .when('/emailForm', {
         	templateUrl: '../App/Components/Forms/EmailForm/EmailForm.html',
-        	controller: 'EmailController'
+        	controller:  'EmailController'
+        })
+        .when('/phoneNumberForm', {
+            templateUrl: '../App/Components/Forms/PhoneNumberForm/PhoneNumberForm.html',
+            controller:  'PhoneNumberFormController'
         })
         .when('/facebookForm', {
             templateUrl: '../App/Components/Forms/FacebookForm/FacebookForm.html',
@@ -30,7 +34,28 @@ mainApp.config(function ($routeProvider) {
             templateUrl: '../App/Components/Forms/TwitterForm/TwitterForm.html',
             controller:  'TwitterFormController'
         })
+        .when('/searchResults', {
+            templateUrl: '../App/Components/SearchResults/SearchResults.html',
+            controller:  'SearchResultsController'
+        })
 		.otherwise({
 		    redirectTo: '/'
 		});
+});
+
+mainApp.factory('PersonModel', function PersonModel() {
+    var person = {
+        FirstName: "",
+        LastName: "",
+        Email: "",
+        DateOfBirth: new Date("2000-01-01"),
+        HomeTown: "",
+        CurrentTown: "",
+        FacebookAccount: "",
+        InstagramAccount: "",
+        TwitterAccount: "",
+        //Posts: []
+    };
+
+    return person;
 });

@@ -1,6 +1,6 @@
 ﻿angular.module('nullApp')
     .controller('EmailFormController', EmailFormController);
 
-function EmailFormController($scope, $resource) {
+function EmailFormController($scope) {
     $scope.message = "Hello Email";
 };

@@ -1,9 +1,7 @@
 ﻿using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace NULL_API.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TestController : ApiController
     {
         public string Get()

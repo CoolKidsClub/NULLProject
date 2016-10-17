@@ -6,44 +6,47 @@
             <div class="form-group">
                 <label for="inputFirstName" class="col-lg-2" control-label>First Name</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" />
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-model="person.FirstName" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="inputLastName" class="col-lg-2" control-label>Last Name</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" />
+                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" ng-model="person.LastName" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="inputEmail" class="col-lg-2" control-label>Email Address</label>
                 <div class="col-lg-10">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="something@something.com" />
+                    <input type="email" class="form-control" id="inputEmail" placeholder="something@something.com" ng-model="person.Email" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="inputDOB" class="col-lg-2" control-label>Date of Birth</label>
                 <div class="col-lg-10">
-                    <input type="date" class="form-control" id="inputDOB" value="2000-01-01" />
+                    <input type="date" class="form-control" id="inputDOB" ng-model="person.DateOfBirth" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="inputPlaceOfBirth" class="col-lg-2" control-label>Town / City of Birth</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="inputPlaceOfBirth" placeholder="Location" />
+                    <input type="text" class="form-control" id="inputPlaceOfBirth" placeholder="Location" ng-model="person.HomeTown" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="inputCurrentCity" class="col-lg-2" control-label>Current Town / City</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="inputCurrentCity" placeholder="Location" />
+                    <input type="text" class="form-control" id="inputCurrentCity" placeholder="Location" ng-model="person.CurrentTown" />
                 </div>
             </div>
+
+            <input type="submit" value="Search for People" onclick="location.href='#/searchResults'">
+            <input type="reset">
         </fieldset>
     </form>
     

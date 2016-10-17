@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace NULL_API
 {
@@ -11,7 +12,8 @@ namespace NULL_API
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.EnableCors();
+            EnableCorsAttribute corsAttr = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(corsAttr);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

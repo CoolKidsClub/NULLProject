@@ -70,12 +70,16 @@
     <Content Include="App\Components\Forms\EmailForm\EmailFormController.js" />
     <Content Include="App\Components\Forms\FacebookForm\FacebookForm.html" />
     <Content Include="App\Components\Forms\FacebookForm\FacebookFormController.js" />
+    <Content Include="App\Components\Forms\PhoneNumberForm\PhoneNumberForm.html" />
+    <Content Include="App\Components\Forms\PhoneNumberForm\PhoneNumberFormController.js" />
     <Content Include="App\Components\Home\Home.html" />
     <Content Include="App\Components\Home\HomeController.js" />
     <Content Include="App\Components\Forms\InstagramForm\InstagramForm.html" />
     <Content Include="App\Components\Forms\InstagramForm\InstagramFormController.js" />
     <Content Include="App\Components\Forms\TwitterForm\TwitterForm.html" />
     <Content Include="App\Components\Forms\TwitterForm\TwitterFormController.js" />
+    <Content Include="App\Components\SearchResults\SearchResults.html" />
+    <Content Include="App\Components\SearchResults\SearchResultsController.js" />
     <Content Include="App\main.js" />
     <Content Include="App\Components\Forms\PersonForm\PersonFormController.js" />
     <Content Include="packages.config" />
