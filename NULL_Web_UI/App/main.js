@@ -4,6 +4,7 @@ var mainApp = angular.module("nullApp",
     [
         'ngRoute',
         'ngResource',
+        //'$window',
         'person-directives'
     ]);
 
@@ -65,4 +66,14 @@ mainApp.factory('PersonModel', function PersonModel() {
     };
 
     return person;
+});
+
+mainApp.factory('AuthTokens', function AuthTokens() {
+    var tokens = {
+        FacebookToken: "",
+        InstagramToken: "",
+        TwitterToken: "",
+    };
+
+    return tokens;
 });
