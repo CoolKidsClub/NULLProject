@@ -2,4 +2,39 @@
     <h4>{{message}}</h4>
 
     <h2>{{name}}</h2>
+    
+    <ul class="nav nav-pills">
+        <li ng-class="{ active:tabIsSet(1) }">
+            <a href="" ng-click="setTab(1)">Facebook</a>
+        </li>
+        <li ng-class="{ active:tabIsSet(2) }">
+            <a href="" ng-click="setTab(2)">Instagram</a>
+        </li>
+        <li ng-class="{ active:tabIsSet(3) }">
+            <a href="" ng-click="setTab(3)">Twitter</a>
+        </li>
+    </ul>
+    
+    <div ng-show="tabIsSet(1)">
+        <h2>Facebook</h2>
+    </div>
+    <div ng-show="tabIsSet(2)">
+        <h2>Instagram</h2>
+    </div>
+    <div ng-show="tabIsSet(3)">
+        <h2>Twitter Accounts</h2>
+        <div class="list-group">
+            <div class="list-group-item" ng-repeat="twitterAccount in twitterAccounts">
+                <h3>
+                    {{twitterAccount.Name}}
+                    <em class="pull-right">{{twitterAccount.Nickname}}</em>
+                </h3>
+
+                <!-- For Images -->
+                <!--<div class="img-wrap">
+                <img ng-src="{{twitterAccount.image}}" class="img-thumbnail center-block" />
+            </div>-->
+            </div>
+        </div>
+    </div>
 </div>
