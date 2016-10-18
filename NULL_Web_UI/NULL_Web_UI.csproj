@@ -112,6 +112,7 @@
     <Content Include="Scripts\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\Bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\Facebook\facebookSdk.js" />
     <Content Include="Scripts\head.load.min.js" />
     <Content Include="Scripts\JQuery\jquery.js" />
     <Content Include="Web.config" />

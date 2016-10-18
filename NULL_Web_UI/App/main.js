@@ -4,7 +4,6 @@ var mainApp = angular.module("nullApp",
     [
         'ngRoute',
         'ngResource',
-        //'$window',
         'person-directives'
     ]);
 

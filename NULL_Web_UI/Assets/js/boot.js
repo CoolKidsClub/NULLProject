@@ -4,6 +4,7 @@
     { file: "Scripts/Angular/angular-route.min.js" },
     { file: "Scripts/Angular/angular-resource.min.js" },
     { file: "Scripts/Bootstrap/js/bootstrap.min.js" },
+    { file: "Scripts/Facebook/facebookSdk.js" },
     { file: "App/main.js" },
     { file: "App/Components/Home/HomeController.js" },
     { file: "App/Components/Forms/PersonForm/PersonFormController.js" },
