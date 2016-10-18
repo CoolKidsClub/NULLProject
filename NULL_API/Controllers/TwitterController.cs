@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace NULL_API.Controllers
 {
     public class TwitterController : ApiController
     {
-        [Route("api/1/twitter/user/{twitterHandle}"), HttpGet]
-        public IHttpActionResult GetTwitterProfile(string twitterHandle)
+        [Route("api/1/twitter/user/handle/{twitterHandle}"), HttpGet]
+        public IHttpActionResult GetTwitterProfileByHandle(string twitterHandle)
         {
             try
             {
@@ -27,6 +28,24 @@ namespace NULL_API.Controllers
                 };
 
                 return Ok(up);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [Route("api/1/twitter/user/details"), HttpGet]
+        public IHttpActionResult GetTwitterProfileByDetails(string userString)
+        {
+            try
+            {
+                UserProfile userData = new JavaScriptSerializer().Deserialize<UserProfile>(userString);
+
+                List<UserProfile> profiles = new List<UserProfile>();
+                profiles.Add(userData);
+
+                return Ok(profiles);
             }
             catch (Exception ex)
             {

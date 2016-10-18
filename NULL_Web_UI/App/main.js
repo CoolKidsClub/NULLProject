@@ -45,8 +45,11 @@ mainApp.config(function ($routeProvider) {
 
 mainApp.factory('PersonModel', function PersonModel() {
     var person = {
-        FirstName: "",
-        LastName: "",
+        Name: "",
+        Nickname: "",
+        Gender: "Unknown",
+        Occupation: "",
+        Religion: "",
         Email: "",
         PhoneNumber: "",
         DateOfBirth: new Date("2000-01-01"),

@@ -1,12 +1,12 @@
 ﻿angular.module('nullApp')
     .controller('SearchResultsController', SearchResultsController);
 
-function SearchResultsController($scope, $resource, PersonModel) {
-    var singleTwitterRoute = $resource("http://localhost:5756/api/1/twitter/user/:twitterHandle", {});
+function SearchResultsController($scope, $resource, PersonModel)
+{
+    var twitterRouteByHandle    = $resource("http://localhost:5756/api/1/twitter/user/handle/:twitterHandle", {});
+    var twitterRouteByData      = $resource("http://localhost:5756/api/1/twitter/user/details/:userData", {});
 
-    $scope.message = "Search Results Are:";
     $scope.person = PersonModel;
-    $scope.name = $scope.person.FirstName + " " + $scope.person.LastName;
     $scope.tab = 1;
 
     $scope.tabIsSet = function (checkTab) {
@@ -17,7 +17,7 @@ function SearchResultsController($scope, $resource, PersonModel) {
         $scope.tab = activeTab;
     };
 
-    var IsStringEmpty = function (data)
+    var IsStringNullOrEmpty = function (data)
     {
         if (data === "" || data === null)
         {
@@ -27,6 +27,23 @@ function SearchResultsController($scope, $resource, PersonModel) {
         {
             return false;
         }
+    }
+
+    var createUserProfile = function (data)
+    {
+        var userProfile =
+        {
+            Name:           data.Name,
+            Nickname:       data.Nickname,
+            DateOfBirth:    data.DateOfBirth,
+            Gender:         data.Gender,
+            HomeTown:       data.HomeTown,
+            Address:        data.CurrentTown,
+            Occupation:     data.Occupation,
+            Religion:       data.Religion,
+        };
+
+        return userProfile;
     }
 
     console.log($scope.person);
@@ -44,7 +61,8 @@ function SearchResultsController($scope, $resource, PersonModel) {
         }
 
         console.log($scope.twitterAccounts.length);
-        if ($scope.twitterAccounts.length === 0) {
+        if ($scope.twitterAccounts.length === 0)
+        {
             console.log("No twitter accounts found");
             GetTwitterAccount();
         }
@@ -66,7 +84,7 @@ function SearchResultsController($scope, $resource, PersonModel) {
     var GetFacebookAccounts = function ()
     {
         console.log("Check facebook accounts");
-        if (IsStringEmpty($scope.person.FacebookAccount) === false)
+        if (IsStringNullOrEmpty($scope.person.FacebookAccount) === false)
         {
             $scope.facebookAccounts = [];
 
@@ -80,7 +98,7 @@ function SearchResultsController($scope, $resource, PersonModel) {
 
     var GetInstagramAccounts = function ()
     {
-        if (IsStringEmpty($scope.person.InstagramAccount) === false)
+        if (IsStringNullOrEmpty($scope.person.InstagramAccount) === false)
         {
             $scope.instagramAccounts = [];
 
@@ -94,12 +112,12 @@ function SearchResultsController($scope, $resource, PersonModel) {
 
     var GetTwitterAccount = function ()
     {
-        if (IsStringEmpty($scope.person.TwitterAccount) === false)
+        if (IsStringNullOrEmpty($scope.person.TwitterAccount) === false)
         {
             $scope.twitterAccounts = [];
 
             // Find single account
-            singleTwitterRoute.get({ twitterHandle: $scope.person.TwitterAccount },
+            twitterRouteByHandle.get({ twitterHandle: $scope.person.TwitterAccount },
                 function (data) {
                     $scope.twitterAccounts.push(data);
                     console.log(data);
@@ -109,16 +127,23 @@ function SearchResultsController($scope, $resource, PersonModel) {
         {
             // Widen Search Range
             console.log("No Twitter handle provided");
+
+            twitterRouteByData.query({ userString: angular.toJson(createUserProfile($scope.person), false) },
+                function (data)
+                {
+                    console.log(data);
+                    $scope.twitterAccounts = data;
+                });
         }
     }
 
     var SearchAccounts = function ()
     {
-        if (IsStringEmpty($scope.person.Email) === false)
+        if (IsStringNullOrEmpty($scope.person.Email) === false)
         {
             FindByEmail();
         }
-        else if (IsStringEmpty($scope.person.PhoneNumber) === false)
+        else if (IsStringNullOrEmpty($scope.person.PhoneNumber) === false)
         {
             FindByPhoneNumber();
         }

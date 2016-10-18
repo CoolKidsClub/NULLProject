@@ -4,23 +4,16 @@
             <legend>Enter Person Details</legend>
             
             <div class="form-group">
-                <label for="inputFirstName" class="col-lg-2" control-label>First Name</label>
+                <label for="inputName" class="col-lg-2" control-label>Name</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-model="person.FirstName" />
+                    <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="person.Name" />
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="inputLastName" class="col-lg-2" control-label>Last Name</label>
+                <label for="inputNickname" class="col-lg-2" control-label>Nickname</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" ng-model="person.LastName" />
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="inputEmail" class="col-lg-2" control-label>Email Address</label>
-                <div class="col-lg-10">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="something@something.com" ng-model="person.Email" />
+                    <input type="text" class="form-control" id="inputNickname" placeholder="Nickname" ng-model="person.Nickname" />
                 </div>
             </div>
             
@@ -28,6 +21,17 @@
                 <label for="inputDOB" class="col-lg-2" control-label>Date of Birth</label>
                 <div class="col-lg-10">
                     <input type="date" class="form-control" id="inputDOB" ng-model="person.DateOfBirth" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputGender" class="col-lg-2" control-label>Gender</label>
+                <div class="col-lg-10">
+                    <select id="inputGender" ng-model="person.Gender">
+                        <option value="Unknown" selected>Unknown</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                 </div>
             </div>
             
@@ -42,6 +46,20 @@
                 <label for="inputCurrentCity" class="col-lg-2" control-label>Current Town / City</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="inputCurrentCity" placeholder="Location" ng-model="person.CurrentTown" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputOccupation" class="col-lg-2" control-label>Ocupation</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputOccupation" placeholder="Occupation" ng-model="person.Occupation" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputReligion" class="col-lg-2" control-label>Religion</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="inputReligion" placeholder="Religion" ng-model="person.Religion" />
                 </div>
             </div>
 
