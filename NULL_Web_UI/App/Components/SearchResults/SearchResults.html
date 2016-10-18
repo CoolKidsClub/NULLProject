@@ -12,24 +12,26 @@
     </ul>
     
     <div ng-show="tabIsSet(1)">
-        <h2>Facebook</h2>
+        <h2>Facebook Accounts</h2>
+        <div class="list-group">
+            <div class="list-group-item" ng-repeat="account in facebookAccounts | orderBy: '-MatchPercentage'">
+                <person-tab></person-tab>
+            </div>
+        </div>
     </div>
     <div ng-show="tabIsSet(2)">
-        <h2>Instagram</h2>
+        <h2>Instagram Accounts</h2>
+        <div class="list-group">
+            <div class="list-group-item" ng-repeat="account in instagramAccounts | orderBy: '-MatchPercentage'">
+                <person-tab></person-tab>
+            </div>
+        </div>
     </div>
     <div ng-show="tabIsSet(3)">
         <h2>Twitter Accounts</h2>
         <div class="list-group">
-            <div class="list-group-item" ng-repeat="twitterAccount in twitterAccounts">
-                <h3>
-                    {{twitterAccount.Name}}
-                    <em class="pull-right">{{twitterAccount.Nickname}}</em>
-                </h3>
-
-                <!-- For Images -->
-                <!--<div class="img-wrap">
-                <img ng-src="{{twitterAccount.image}}" class="img-thumbnail center-block" />
-            </div>-->
+            <div class="list-group-item" ng-repeat="account in twitterAccounts | orderBy: '-MatchPercentage'">
+                <person-tab></person-tab>
             </div>
         </div>
     </div>

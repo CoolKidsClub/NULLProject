@@ -1,7 +1,10 @@
-﻿var mainApp = angular.module("nullApp",
+﻿"use strict";
+
+var mainApp = angular.module("nullApp",
     [
         'ngRoute',
-        'ngResource'
+        'ngResource',
+        'person-directives'
     ]);
 
 mainApp.config(function ($routeProvider) {
