@@ -46,6 +46,11 @@ function SearchResultsController($scope, $resource, PersonModel)
         return userProfile;
     }
 
+    var updatePersonInformation = function (data)
+    {
+        // To do
+    }
+
     console.log($scope.person);
 
     $scope.facebookAccounts = [];
@@ -120,7 +125,6 @@ function SearchResultsController($scope, $resource, PersonModel)
             twitterRouteByHandle.get({ twitterHandle: $scope.person.TwitterAccount },
                 function (data) {
                     $scope.twitterAccounts.push(data);
-                    console.log(data);
                 });
         }
         else

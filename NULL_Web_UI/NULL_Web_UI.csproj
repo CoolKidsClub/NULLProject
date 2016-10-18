@@ -78,6 +78,8 @@
     <Content Include="App\Components\Forms\InstagramForm\InstagramFormController.js" />
     <Content Include="App\Components\Forms\TwitterForm\TwitterForm.html" />
     <Content Include="App\Components\Forms\TwitterForm\TwitterFormController.js" />
+    <Content Include="App\Components\SearchResults\person-directives.js" />
+    <Content Include="App\Components\SearchResults\person-tab.html" />
     <Content Include="App\Components\SearchResults\SearchResults.html" />
     <Content Include="App\Components\SearchResults\SearchResultsController.js" />
     <Content Include="App\main.js" />

@@ -12,5 +12,6 @@
     { file: "App/Components/Forms/FacebookForm/FacebookFormController.js" },
     { file: "App/Components/Forms/InstagramForm/InstagramFormController.js" },
     { file: "App/Components/Forms/TwitterForm/TwitterFormController.js" },
-    { file: "App/Components/SearchResults/SearchResultsController.js" }
+    { file: "App/Components/SearchResults/SearchResultsController.js" },
+    { file: "App/Components/SearchResults/person-directives.js" }
 );
