@@ -16,7 +16,7 @@ function HomeController($scope, $resource) {
         $scope.accessToken = window.location.hash.substr(14);
 
         var x = "https://api.instagram.com/v1/tags/nofilter/media/recent?access_token=" + $scope.accessToken;
-        
+        console.log(x);
     };
     init();
 
@@ -25,7 +25,8 @@ function HomeController($scope, $resource) {
         var link = "https://api.instagram.com/oauth/authorize/?"
             + "client_id=" + clientId
             + "&redirect_uri=" + redirectUri
-            + "&response_type=token";
+            + "&response_type=token"
+            + "&scope=public_content+comments+likes+follower_list+relationships";
 
         window.location.href = link;
     };
