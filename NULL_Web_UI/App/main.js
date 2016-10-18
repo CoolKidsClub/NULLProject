@@ -4,19 +4,19 @@
         'ngResource'
     ]);
 
-mainApp.config(function ($routeProvider) {
+mainApp.config(function ($routeProvider, $locationProvider) {
     $routeProvider
 		.when('/', {
 		    templateUrl: '../App/Components/Home/Home.html',
-            controller:  'HomeController'
+		    controller:  'HomeController'
 		})
 		.when('/personForm', {
 		    templateUrl: '../App/Components/Forms/PersonForm/PersonForm.html',
 		    controller:  'PersonController'
 		})
         .when('/emailForm', {
-        	templateUrl: '../App/Components/Forms/EmailForm/EmailForm.html',
-        	controller:  'EmailFormController'
+            templateUrl: '../App/Components/Forms/EmailForm/EmailForm.html',
+            controller:  'EmailFormController'
         })
         .when('/phoneNumberForm', {
             templateUrl: '../App/Components/Forms/PhoneNumberForm/PhoneNumberForm.html',
@@ -37,10 +37,13 @@ mainApp.config(function ($routeProvider) {
         .when('/searchResults', {
             templateUrl: '../App/Components/SearchResults/SearchResults.html',
             controller:  'SearchResultsController'
-        })
-		.otherwise({
-		    redirectTo: '/'
-		});
+        });
+		//.otherwise({
+		//    redirectTo: '/'
+		//});
+
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true).hashPrefix('!');
 });
 
 mainApp.factory('PersonModel', function PersonModel() {
