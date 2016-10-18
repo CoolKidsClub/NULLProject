@@ -21,7 +21,7 @@ namespace NULL_API.WebApiResources
             }
             catch (Exception ex)
             {
-                throw new InstanceNotFoundException("Failed to find Facebook user profile");
+                throw new InstanceNotFoundException("Failed to find Facebook user profile", ex);
             }
         }
     }
