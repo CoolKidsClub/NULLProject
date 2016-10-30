@@ -9,6 +9,9 @@
         <li ng-class="{ active:tabIsSet(3) }">
             <a href="" ng-click="setTab(3)">Twitter - {{twitterAccounts.length}}</a>
         </li>
+        <li ng-class="{ active:tabIsSet(4) }">
+            <a href="" ng-click="setTab(4)">Cool Kids Clubs - {{coolKidsClubAccounts.length}}</a>
+        </li>
     </ul>
     
     <div ng-show="tabIsSet(1)">
@@ -31,6 +34,14 @@
         <h2>Twitter Accounts</h2>
         <div class="list-group">
             <div class="list-group-item" ng-repeat="account in twitterAccounts | orderBy: '-MatchPercentage'">
+                <person-tab></person-tab>
+            </div>
+        </div>
+    </div>
+    <div ng-show="tabIsSet(4)">
+        <h2>Cool Kids Club Accounts</h2>
+        <div class="list-group">
+            <div class="list-group-item" ng-repeat="account in coolKidsClubAccounts | orderBy: '-MatchPercentage'">
                 <person-tab></person-tab>
             </div>
         </div>

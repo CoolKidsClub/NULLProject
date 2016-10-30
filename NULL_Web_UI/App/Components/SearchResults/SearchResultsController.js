@@ -4,7 +4,8 @@
 function SearchResultsController($scope, $resource, PersonModel)
 {
     var twitterRouteByHandle    = $resource("http://localhost:5756/api/1/twitter/user/handle/:twitterHandle", {});
-    var twitterRouteByData      = $resource("http://localhost:5756/api/1/twitter/user/details/:userData", {});
+    var twitterRouteByData = $resource("http://localhost:5756/api/1/twitter/user/details/:userData", {});
+    var coolKidsClubUsers = $resource("http://localhost:5756/api/1/ckc/users", {});
 
     $scope.person = PersonModel;
     $scope.tab = 1;
@@ -38,7 +39,7 @@ function SearchResultsController($scope, $resource, PersonModel)
             DateOfBirth:    data.DateOfBirth,
             Gender:         data.Gender,
             HomeTown:       data.HomeTown,
-            Address:        data.CurrentTown,
+            CurrentTown:    data.CurrentTown,
             Occupation:     data.Occupation,
             Religion:       data.Religion,
         };
@@ -51,11 +52,185 @@ function SearchResultsController($scope, $resource, PersonModel)
         // To do
     }
 
+    var checkName = function (data)
+    {
+        var value = 0;
+
+        /// If names matche exactly
+        if (data === $scope.person.Name)
+        {
+            value = 40;
+        }
+        else
+        {
+            /// If last names macth
+            if (data.split(" ").pop() === $scope.person.Name.split(" ").pop())
+            {
+                value = value + 15;
+            }
+
+            // If first names match
+            if (data.substr(0, data.indexOf(' ')) === $scope.person.Name.substr(0, $scope.person.Name.indexOf(' ')))
+            {
+                value = value + 10;
+            }
+        }
+
+        return value;
+    }
+
+    var checkNickname = function (data)
+    {
+        var value = 0;
+
+        if (data === $scope.person.Nickname)
+        {
+            value = 25;
+        }
+
+        return value;
+    }
+
+    var checkBirthDate = function (data)
+    {
+        var value = 0;
+        //var dataDate = new Date(data.year)
+
+        console.log(data.Year);
+        console.log($scope.person.DateOfBirth);
+
+        return value;
+    }
+
+    var checkGender = function (data)
+    {
+        var value = 0;
+
+        if (data !== "Unknown" &&
+            data === $scope.person.Gender)
+        {
+            value = 5;
+        }
+
+        return value;
+    }
+
+    var checkCityOfBirth = function (data)
+    {
+        var value = 0;
+
+        if (data === $scope.person.HomeTown)
+        {
+            value = 5;
+        }
+
+        return value;
+    }
+
+    var checkCurrentCity = function (data)
+    {
+        var value = 0;
+
+        if (data === $scope.person.CurrentTown)
+        {
+            value = 5;
+        }
+
+        return value;
+    }
+
+    var checkOccupation = function (data)
+    {
+        var value = 0;
+
+        if (data === $scope.person.Occupation)
+        {
+            value = 5;
+        }
+
+        return value;
+    }
+
+    var checkReligion = function (data)
+    {
+        var value = 0;
+
+        if (data === $scope.person.Religion)
+        {
+            value = 5;
+        }
+
+        return value;
+    }
+
+    var checkPhoneNumber = function (data)
+    {
+        var value = 0;
+
+        if (data === $scope.person.PhoneNumber)
+        {
+            value = 100;
+        }
+
+        return value;
+    }
+
+    var checkEmail = function (data)
+    {
+        var value = 0;
+
+        if (data === $scope.person.Email)
+        {
+            value = 100;
+        }
+
+        return value;
+    }
+
+    var calculateMatchPercentage = function (data)
+    {
+        data.MatchPercentage = data.MatchPercentage + checkName(data.Name);
+
+        data.MatchPercentage = data.MatchPercentage + checkNickname(data.Nickname);
+
+        // Need to work out how to compare dates passed as different formats
+        //data.MatchPercentage = data.MatchPercentage + checkBirthDate(data.DateOfBirth);
+
+        data.MatchPercentage = data.MatchPercentage + checkGender(data.Gender);
+
+        data.MatchPercentage = data.MatchPercentage + checkCityOfBirth(data.HomeTown);
+
+        data.MatchPercentage = data.MatchPercentage + checkCurrentCity(data.CurrentTown);
+
+        data.MatchPercentage = data.MatchPercentage + checkOccupation(data.Occupation);
+
+        data.MatchPercentage = data.MatchPercentage + checkReligion(data.Religion);
+
+        data.MatchPercentage = data.MatchPercentage + checkPhoneNumber(data.PhoneNumber);
+
+        data.MatchPercentage = data.MatchPercentage + checkEmail(data.Email);
+
+        if (data.MatchPercentage > 100)
+        {
+            data.MatchPercentage = 100;
+        }
+    }
+
+    var calculateMatchPercentages = function (data)
+    {
+        console.log("Match check function has been run");
+        angular.forEach(data, function (value, key)
+        {
+            calculateMatchPercentage(value);
+        });
+    }
+
     console.log($scope.person);
 
-    $scope.facebookAccounts = [];
-    $scope.instagramAccounts = [];
-    $scope.twitterAccounts = [];
+    $scope.facebookAccounts     = [];
+    $scope.instagramAccounts    = [];
+    $scope.twitterAccounts      = [];
+    $scope.coolKidsClubAccounts = [];
 
     var CheckAccounts = function ()
     {
@@ -71,6 +246,8 @@ function SearchResultsController($scope, $resource, PersonModel)
             console.log("No twitter accounts found");
             GetTwitterAccount();
         }
+
+        GetCoolKidsClubAccounts();
     }
 
     var FindByEmail = function ()
@@ -141,6 +318,17 @@ function SearchResultsController($scope, $resource, PersonModel)
         }
     }
 
+    var GetCoolKidsClubAccounts = function ()
+    {
+        coolKidsClubUsers.query({},
+            function (data) {
+                console.log(data);
+                $scope.coolKidsClubAccounts = data;
+
+                calculateMatchPercentages($scope.coolKidsClubAccounts);
+            });
+    }
+
     var SearchAccounts = function ()
     {
         if (IsStringNullOrEmpty($scope.person.Email) === false)
@@ -156,6 +344,7 @@ function SearchResultsController($scope, $resource, PersonModel)
             GetFacebookAccounts();
             GetInstagramAccounts();
             GetTwitterAccount();
+            GetCoolKidsClubAccounts();
         }
     }
 

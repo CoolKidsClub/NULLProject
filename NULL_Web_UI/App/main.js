@@ -40,13 +40,13 @@ mainApp.config(function ($routeProvider, $locationProvider) {
         .when('/searchResults', {
             templateUrl: '../App/Components/SearchResults/SearchResults.html',
             controller:  'SearchResultsController'
-        });
-		//.otherwise({
-		//    redirectTo: '/'
-		//});
+        })
+		.otherwise({
+		    redirectTo: '/'
+		});
 
     // use the HTML5 History API
-    $locationProvider.html5Mode(true).hashPrefix('!');
+    //$locationProvider.html5Mode(true).hashPrefix('!');
 });
 
 mainApp.factory('PersonModel', function PersonModel() {

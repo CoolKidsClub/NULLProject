@@ -8,15 +8,15 @@ namespace NULL_API.Models
         public string               Name;
         public string               Nickname;
         public string               Gender;
-        public string               Address;
+        public string               CurrentTown;
         public string               Email;
-        public int                  PhoneNumber;
+        public long                 PhoneNumber;
         public DateTime             DateOfBirth;
         public string               Occupation;
         public string               HomeTown;
         public List<string>         Languages;
         public string               Religion;
-        public int                  MatchPercentage;
+        public int                  MatchPercentage = 0;
         public ConnectedSocialMedia SocialMedia;
     }
 

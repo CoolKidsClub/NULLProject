@@ -16,7 +16,7 @@ namespace NULL_API.WebApiResources
                 UserProfile profile = new UserProfile
                 {
                     Name = user,
-                    Address = "123 Fake Street.",
+                    CurrentTown = "123 Fake Street.",
                     DateOfBirth = DateTime.UtcNow.AddYears(-25),
                 };
 
