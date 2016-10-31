@@ -1,4 +1,67 @@
 ﻿<div class="container">
+    <script type="text/javascript" src="Scripts/Twitter/codebird.js"></script>
+    <script type="text/javascript">
+
+        var cb = new Codebird;
+        var apiKey = ''; // enter here
+        var apiSecret = ''; // enter here
+        console.log(cb);
+        cb.setConsumerKey(apiKey, apiSecret);
+        console.log(cb);
+
+        var authorize = function () {
+            // gets a request token
+            cb.__call(
+                "oauth_requestToken",
+                { oauth_callback: "oob" },
+                function (reply, rate, err) {
+                    if (err) {
+                        console.log("error response or timeout exceeded" + err.error);
+                    }
+                    if (reply) {
+                        // stores it
+                        cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+
+                        // gets the authorize screen URL
+                        cb.__call(
+                            "oauth_authorize",
+                            {},
+                            function (auth_url) {
+                                window.codebird_auth = window.open(auth_url);
+                            }
+                        );
+                    }
+                }
+            );
+        };
+
+        var findMe = function () {
+            authorize();
+            var searchString = document.getElementById("inputTwitter").value;
+            var params = {
+                q: searchString
+            };
+            cb.__call(
+                "search_tweets",
+                params,
+                function (response) {
+                    console.log(response);
+                    var table = '';
+                    for (i = 0; i < response.statuses.length; i++) {
+                        table += '<tr>';
+                        table += '<td>' + response.statuses[i].user.screen_name + '</td>';
+                        table += '<td>' + response.statuses[i].text + '</td>';
+                        table += '</tr>';
+                    }
+                    table = '<table>' + table + '</table>';
+                    document.getElementById('results').innerHTML = table;
+                }
+            );
+        };
+
+
+    </script>
+
     <form class="form-horizontal">
         <fieldset>
             <legend>Enter Twitter Account</legend>
@@ -13,4 +76,6 @@
     </form>
 
     <input type="submit" value="Search for People" onclick="location.href='#/searchResults'">
+    <div id="results"></div>
+    <button type="button" onclick="findMe()">Find Me</button>
 </div>

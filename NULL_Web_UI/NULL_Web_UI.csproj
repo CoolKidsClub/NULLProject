@@ -115,6 +115,7 @@
     <Content Include="Scripts\Facebook\facebookSdk.js" />
     <Content Include="Scripts\head.load.min.js" />
     <Content Include="Scripts\JQuery\jquery.js" />
+    <Content Include="Scripts\Twitter\codebird.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
