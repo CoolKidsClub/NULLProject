@@ -1,13 +1,20 @@
 ﻿using NULL_API.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Http;
 using System.Web.Script.Serialization;
+using Tweetinvi;
 
 namespace NULL_API.Controllers
 {
     public class TwitterController : ApiController
     {
+        private readonly string ApiKey = ConfigurationManager.AppSettings["twitterApiKey"];
+        private readonly string ApiSecret = ConfigurationManager.AppSettings["twitterApiSecret"];
+        private readonly string AccessToken = ConfigurationManager.AppSettings["twitterAccessToken"];
+        private readonly string AccessTokenSecret = ConfigurationManager.AppSettings["twitterAccessTokenSecret"];
+
         private UserProfile up1 = new UserProfile
         {
             Name = "Dave Gorman",
@@ -41,9 +48,19 @@ namespace NULL_API.Controllers
         [Route("api/1/twitter/user/handle/{twitterHandle}"), HttpGet]
         public IHttpActionResult GetTwitterProfileByHandle(string twitterHandle)
         {
+            Auth.SetUserCredentials(ApiKey, ApiSecret, AccessToken, AccessTokenSecret);
+
             try
             {
-                return Ok(up1);
+                Tweetinvi.Models.IUser user = Tweetinvi.User.GetUserFromScreenName(twitterHandle);
+                UserProfile up = new UserProfile
+                {
+                    Name = user.Name,
+                    Nickname = user.ScreenName,
+                    CurrentTown = user.Location
+                };
+
+                return Ok(up);
             }
             catch (Exception ex)
             {

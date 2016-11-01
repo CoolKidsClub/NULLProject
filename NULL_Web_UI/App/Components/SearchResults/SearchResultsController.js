@@ -42,6 +42,10 @@ function SearchResultsController($scope, $resource, PersonModel)
             CurrentTown:    data.CurrentTown,
             Occupation:     data.Occupation,
             Religion:       data.Religion,
+            SocialMedia: {
+                FacebookHandle: data.FacebookHandle,
+                TwitterHandle:  data.twitterHandle
+            }
         };
 
         return userProfile;
