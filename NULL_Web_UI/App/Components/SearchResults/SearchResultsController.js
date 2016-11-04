@@ -94,10 +94,18 @@ function SearchResultsController($scope, $resource, PersonModel)
     var checkBirthDate = function (data)
     {
         var value = 0;
-        //var dataDate = new Date(data.year)
 
-        console.log(data.Year);
-        console.log($scope.person.DateOfBirth);
+        var profileDate = new Date(data).setHours(0, 0, 0, 0);
+        var selectedDate = new Date($scope.person.DateOfBirth).setHours(0, 0, 0, 0);
+
+        console.log(profileDate);
+        console.log(selectedDate);
+
+        if (profileDate === selectedDate)
+        {
+            value = 5;
+            console.log("Match found");
+        }
 
         return value;
     }
@@ -193,8 +201,7 @@ function SearchResultsController($scope, $resource, PersonModel)
 
         data.MatchPercentage = data.MatchPercentage + checkNickname(data.Nickname);
 
-        // Need to work out how to compare dates passed as different formats
-        //data.MatchPercentage = data.MatchPercentage + checkBirthDate(data.DateOfBirth);
+        data.MatchPercentage = data.MatchPercentage + checkBirthDate(data.DateOfBirth);
 
         data.MatchPercentage = data.MatchPercentage + checkGender(data.Gender);
 

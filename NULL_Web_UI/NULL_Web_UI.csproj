@@ -84,6 +84,7 @@
     <Content Include="App\Components\SearchResults\SearchResultsController.js" />
     <Content Include="App\main.js" />
     <Content Include="App\Components\Forms\PersonForm\PersonFormController.js" />
+    <Content Include="App\Components\SearchResults\images\Person_NoPhotoAvailable.png" />
     <Content Include="packages.config" />
     <Content Include="App\Components\Forms\PersonForm\PersonForm.html" />
     <Content Include="Resources\logo.ico" />
@@ -116,7 +117,9 @@
     <Content Include="Scripts\head.load.min.js" />
     <Content Include="Scripts\JQuery\jquery.js" />
     <Content Include="Scripts\Twitter\codebird.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -47,6 +47,7 @@ mainApp.config(function ($routeProvider, $locationProvider) {
 
     // use the HTML5 History API
     //$locationProvider.html5Mode(true).hashPrefix('!');
+    //$locationProvider.html5Mode(true);
 });
 
 mainApp.factory('PersonModel', function PersonModel() {

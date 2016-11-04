@@ -4,8 +4,41 @@
         <em class="pull-right">{{account.Nickname}}</em>
     </h3>
 
-    <!-- For Images -->
-    <!--<div class="img-wrap">
-        <img ng-src="{{account.image}}" class="img-thumbnail center-block" />
-    </div>-->
+    <div class="img-wrap" ng-if="account.Image == null">
+        <img ng-src="App/Components/SearchResults/images/Person_NoPhotoAvailable.png" width="100" height="100" alt="image" class="img-thumbnail img-circle center-block"  />
+    </div>
+    <div ng-if="account.Image != null">
+        <img ng-src="{{account.Image}}" width="200" height="200" alt="image" class="img-thumbnail center-block"/>
+    </div>
+
+    <h4>
+        Email: {{account.Email}}
+        <em class="pull-right">
+            Phone: {{account.PhoneNumber}}
+        </em>
+    </h4>
+
+    <h4>
+        Home town: {{account.HomeTown}}
+        <em class="pull-right">
+            Current town: {{account.CurrentTown}}
+        </em>
+    </h4>
+
+    <h4>
+        Date of Birth: {{account.DateOfBirth | date: "dd/MM/yyyy"}}
+    </h4>
+
+    <h4>
+        Gender: {{account.Gender}}
+    </h4>
+
+    <h4>
+        Occupation: {{account.Occupation}}
+    </h4>
+
+    <h4>
+        Religion: {{account.Religion}}
+    </h4>
+
 </section>
