@@ -1,10 +1,11 @@
 ﻿using NULL_API.Models;
+using NULL_API.WebApiResources;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using Tweetinvi;
 
 namespace NULL_API.Controllers
 {
@@ -45,11 +46,14 @@ namespace NULL_API.Controllers
             MatchPercentage = 13,
         };
 
+        public TwitterController()
+        {
+            Tweetinvi.Auth.SetUserCredentials(ApiKey, ApiSecret, AccessToken, AccessTokenSecret);
+        }
+
         [Route("api/1/twitter/user/handle/{twitterHandle}"), HttpGet]
         public IHttpActionResult GetTwitterProfileByHandle(string twitterHandle)
         {
-            Auth.SetUserCredentials(ApiKey, ApiSecret, AccessToken, AccessTokenSecret);
-
             try
             {
                 Tweetinvi.Models.IUser user = Tweetinvi.User.GetUserFromScreenName(twitterHandle);
@@ -75,17 +79,88 @@ namespace NULL_API.Controllers
             {
                 UserProfile userData = new JavaScriptSerializer().Deserialize<UserProfile>(userString);
 
-                List<UserProfile> profiles = new List<UserProfile>();
-                userData.MatchPercentage = 100;
-                profiles.Add(up1);
-                profiles.Add(up2);
-                profiles.Add(userData);
-                
-                return Ok(profiles);
+                // Search by full name, nickname, current town, home town
+                var fullResults = new IEnumerable<UserProfile>[]
+                {
+                    Search(userData.Name),
+                    Search(userData.Nickname),
+                    Search(userData.CurrentTown),
+                    Search(userData.HomeTown)
+                };
+
+                var intersection = GetIntersection(fullResults);
+                if (intersection.Count > 0)
+                {
+                    return Ok(intersection);
+                }
+
+                var union = GetUnion(fullResults);
+                return Ok(union);
             }
             catch (Exception ex)
             {
                 return InternalServerError(ex);
+            }
+        }
+
+        private class UserProfileComparer : IEqualityComparer<UserProfile>
+        {
+            public bool Equals(UserProfile x, UserProfile y)
+            {
+                return x.Name == y.Name
+                    && x.Nickname == y.Nickname
+                    && x.Gender == y.Gender
+                    && x.CurrentTown == y.CurrentTown
+                    && x.Email == y.Email
+                    && x.PhoneNumber == y.PhoneNumber
+                    && x.DateOfBirth.Equals(y.DateOfBirth)
+                    && x.Occupation == y.Occupation
+                    && x.HomeTown == y.HomeTown
+                    && x.Religion == y.Religion;
+            }
+
+            public int GetHashCode(UserProfile obj)
+            {
+                return obj.GetHashCode();
+            }
+        }
+
+        private IList<UserProfile> GetUnion(params IEnumerable<UserProfile>[] results)
+        {
+            if (results.Length < 1)
+            {
+                // Return an empty list as there are no lists provided to intersect
+                return new List<UserProfile>();
+            }
+
+            return results.SelectMany(x => x).Distinct().ToList();
+        }
+
+        private IList<UserProfile> GetIntersection(params IEnumerable<UserProfile>[] results)
+        {
+            if (results.Length < 1)
+            {
+                // Return an empty list as there are no lists provided to intersect
+                return new List<UserProfile>();
+            }
+
+            var intersection = results
+                .Skip(1)
+                .Aggregate(new HashSet<UserProfile>(results.First()),
+                           (l1, l2) => { l1.IntersectWith(l2); return l1; });
+            return intersection.ToList();
+        }
+
+        private IEnumerable<UserProfile> Search(string searchTerm)
+        {
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                return Tweetinvi.Search.SearchUsers(searchTerm).Convert();
+            }
+            else
+            {
+                // Return an empty list as the search term is null/empty
+                return new List<UserProfile>();
             }
         }
     }

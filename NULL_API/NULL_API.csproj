@@ -199,6 +199,7 @@
     <Compile Include="Routes\Routes.cs" />
     <Compile Include="WebApiResources\FacebookResources.cs" />
     <Compile Include="WebApiResources\InstagramResources.cs" />
+    <Compile Include="WebApiResources\TwitterResources.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
