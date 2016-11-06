@@ -38,6 +38,7 @@ function SearchResultsController($scope, $resource, PersonModel)
             Nickname:       data.Nickname,
             DateOfBirth:    data.DateOfBirth,
             Gender:         data.Gender,
+            Email:          data.Email,
             HomeTown:       data.HomeTown,
             CurrentTown:    data.CurrentTown,
             Occupation:     data.Occupation,

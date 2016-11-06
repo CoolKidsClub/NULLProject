@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Web.Http;
 using System.Web.Script.Serialization;
 
@@ -79,28 +80,56 @@ namespace NULL_API.Controllers
             {
                 UserProfile userData = new JavaScriptSerializer().Deserialize<UserProfile>(userString);
 
-                // Search by full name, nickname, current town, home town
-                var fullResults = new IEnumerable<UserProfile>[]
+                // Build query. Search by full name, nickname, current town, home town, email
+                var parameters = new string[]
                 {
-                    Search(userData.Name),
-                    Search(userData.Nickname),
-                    Search(userData.CurrentTown),
-                    Search(userData.HomeTown)
+                    userData.Name,
+                    userData.Nickname,
+                    userData.CurrentTown,
+                    userData.HomeTown,
+                    userData.Email
                 };
+                var query = BuildQuery(parameters);
+                var results = Search(query.ToString());
+                return Ok(results);
 
-                var intersection = GetIntersection(fullResults);
-                if (intersection.Count > 0)
-                {
-                    return Ok(intersection);
-                }
+                //var fullResults = new IEnumerable<UserProfile>[]
+                //{
+                //    Search(userData.Name),
+                //    Search(userData.Nickname),
+                //    Search(userData.CurrentTown),
+                //    Search(userData.HomeTown)
+                //};
 
-                var union = GetUnion(fullResults);
-                return Ok(union);
+                //var intersection = GetIntersection(fullResults);
+                //if (intersection.Count > 0)
+                //{
+                //    return Ok(intersection);
+                //}
+
+                //var union = GetUnion(fullResults);
+                //return Ok(union);
             }
             catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
+        }
+
+        private string BuildQuery(params string[] parameters)
+        {
+            var query = new StringBuilder();
+
+            foreach (var p in parameters)
+            {
+                if (!string.IsNullOrEmpty(p) && !string.IsNullOrWhiteSpace(p))
+                {
+                    query.Append(p);
+                    query.Append(' ');
+                }
+            }
+
+            return query.ToString();
         }
 
         private class UserProfileComparer : IEqualityComparer<UserProfile>
@@ -153,7 +182,7 @@ namespace NULL_API.Controllers
 
         private IEnumerable<UserProfile> Search(string searchTerm)
         {
-            if (!string.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrWhiteSpace(searchTerm))
             {
                 return Tweetinvi.Search.SearchUsers(searchTerm).Convert();
             }
