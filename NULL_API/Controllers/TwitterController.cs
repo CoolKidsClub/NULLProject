@@ -62,7 +62,8 @@ namespace NULL_API.Controllers
                 {
                     Name = user.Name,
                     Nickname = user.ScreenName,
-                    CurrentTown = user.Location
+                    CurrentTown = user.Location,
+                    Image = user.ProfileImageUrl400x400
                 };
 
                 return Ok(up);

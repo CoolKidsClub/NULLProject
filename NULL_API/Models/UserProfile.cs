@@ -17,6 +17,7 @@ namespace NULL_API.Models
         public List<string>         Languages;
         public string               Religion;
         public int                  MatchPercentage = 0;
+        public string               Image;
         public ConnectedSocialMedia SocialMedia;
     }
 

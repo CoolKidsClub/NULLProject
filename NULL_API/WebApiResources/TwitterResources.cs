@@ -15,6 +15,7 @@ namespace NULL_API.WebApiResources
                 {
                     Name = user.Name,
                     CurrentTown = user.Location,
+                    Image = user.ProfileImageUrl400x400,
                     SocialMedia = new ConnectedSocialMedia { TwitterHandle = user.ScreenName }
                 };
 

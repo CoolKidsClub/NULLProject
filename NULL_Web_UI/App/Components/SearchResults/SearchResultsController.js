@@ -43,6 +43,7 @@ function SearchResultsController($scope, $resource, PersonModel)
             CurrentTown:    data.CurrentTown,
             Occupation:     data.Occupation,
             Religion:       data.Religion,
+            Image:          data.Image,
             SocialMedia: {
                 FacebookHandle: data.FacebookHandle,
                 TwitterHandle:  data.twitterHandle
