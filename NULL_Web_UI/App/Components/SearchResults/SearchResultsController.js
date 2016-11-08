@@ -3,9 +3,14 @@
 
 function SearchResultsController($scope, $resource, PersonModel)
 {
-    var twitterRouteByHandle    = $resource("http://localhost:5756/api/1/twitter/user/handle/:twitterHandle", {});
+    var twitterRouteByHandle = $resource("http://localhost:5756/api/1/twitter/user/handle/:twitterHandle", {});
     var twitterRouteByData = $resource("http://localhost:5756/api/1/twitter/user/details/:userData", {});
     var coolKidsClubUsers = $resource("http://localhost:5756/api/1/ckc/users", {});
+
+    $scope.facebookAccounts = [];
+    $scope.instagramAccounts = [];
+    $scope.twitterAccounts = [];
+    $scope.coolKidsClubAccounts = [];
 
     $scope.person = PersonModel;
     $scope.tab = 1;
@@ -16,6 +21,97 @@ function SearchResultsController($scope, $resource, PersonModel)
 
     $scope.setTab = function (activeTab) {
         $scope.tab = activeTab;
+    };
+
+    var updatePersonInformation = function (data)
+    {
+        var object = {
+            Name: data.name,
+            MatchPercentage: 0,
+        };
+
+        FB.api('/' + data.id + '/picture?type=large', function (response) {
+            object.Image = response.data.url;
+        });
+
+        return object;
+    }
+
+    var fbAsyncInit = function () {
+        console.log("FB INIT");
+
+        FB.init({
+            appId: '351106655235966',
+            channelUrl: 'App/Components/Forms/FacebookForm/FacebookForm.html',
+            status: true,
+            cookie: true,
+            xfbml: true,
+            version: 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                console.log('Logged in.');
+                myFacebookLogin();
+            }
+            else {
+                FB.login();
+            }
+        });
+
+        console.log("Faceboook connection initiated");
+    };
+
+    (function (d) {
+        // load the Facebook javascript SDK
+
+        var js,
+        id = 'facebook-jssdk',
+        ref = d.getElementsByTagName('script')[0];
+
+        if (d.getElementById(id)) {
+            return;
+        }
+
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+
+        ref.parentNode.insertBefore(js, ref);
+
+        console.log("Facebook SDK loaded");
+    }(document));
+
+    var myFacebookLogin = function () {
+        FB.login(function () {
+            facebookSearch();
+        }, { scope: 'publish_actions,public_profile' });
+        
+    }
+
+    var facebookSearch = function () {
+        var searchString = "";
+        if (IsStringNullOrEmpty($scope.person.FacebookAccount) === false)
+        {
+            searchString = $scope.person.FacebookAccount;
+        }
+        else
+        {
+            searchString = $scope.person.Name;
+        }
+        
+        FB.api('/search?q=' + searchString + '&type=user' + '&token=' + FB.getAuthResponse.accessToken, function (response) {
+
+            angular.forEach(response, function (values, keys) {
+                angular.forEach(values, function (value, key) {
+                    $scope.facebookAccounts.push(updatePersonInformation(value));
+                });
+            })
+            var stringResponse = JSON.stringify(response)
+            return stringResponse;
+        })
     };
 
     var IsStringNullOrEmpty = function (data)
@@ -53,17 +149,12 @@ function SearchResultsController($scope, $resource, PersonModel)
         return userProfile;
     }
 
-    var updatePersonInformation = function (data)
-    {
-        // To do
-    }
-
     var checkName = function (data)
     {
         var value = 0;
 
-        /// If names matche exactly
-        if (data === $scope.person.Name)
+        /// If names matches exactly
+        if (data === $scope.person.Name && data !== "")
         {
             value = 40;
         }
@@ -89,7 +180,7 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         var value = 0;
 
-        if (data === $scope.person.Nickname)
+        if (data === $scope.person.Nickname && data !== "")
         {
             value = 25;
         }
@@ -104,13 +195,9 @@ function SearchResultsController($scope, $resource, PersonModel)
         var profileDate = new Date(data).setHours(0, 0, 0, 0);
         var selectedDate = new Date($scope.person.DateOfBirth).setHours(0, 0, 0, 0);
 
-        console.log(profileDate);
-        console.log(selectedDate);
-
         if (profileDate === selectedDate)
         {
             value = 5;
-            console.log("Match found");
         }
 
         return value;
@@ -133,7 +220,7 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         var value = 0;
 
-        if (data === $scope.person.HomeTown)
+        if (data === $scope.person.HomeTown && data !== null)
         {
             value = 5;
         }
@@ -145,7 +232,7 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         var value = 0;
 
-        if (data === $scope.person.CurrentTown)
+        if (data === $scope.person.CurrentTown && data !== "")
         {
             value = 5;
         }
@@ -157,7 +244,7 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         var value = 0;
 
-        if (data === $scope.person.Occupation)
+        if (data === $scope.person.Occupation && data !== "")
         {
             value = 5;
         }
@@ -169,7 +256,7 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         var value = 0;
 
-        if (data === $scope.person.Religion)
+        if (data === $scope.person.Religion && data !== "")
         {
             value = 5;
         }
@@ -181,7 +268,7 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         var value = 0;
 
-        if (data === $scope.person.PhoneNumber)
+        if (data === $scope.person.PhoneNumber && data !== "")
         {
             value = 100;
         }
@@ -193,7 +280,7 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         var value = 0;
 
-        if (data === $scope.person.Email)
+        if (data === $scope.person.Email && data !== "")
         {
             value = 100;
         }
@@ -231,7 +318,6 @@ function SearchResultsController($scope, $resource, PersonModel)
 
     var calculateMatchPercentages = function (data)
     {
-        console.log("Match check function has been run");
         angular.forEach(data, function (value, key)
         {
             calculateMatchPercentage(value);
@@ -239,11 +325,6 @@ function SearchResultsController($scope, $resource, PersonModel)
     }
 
     console.log($scope.person);
-
-    $scope.facebookAccounts     = [];
-    $scope.instagramAccounts    = [];
-    $scope.twitterAccounts      = [];
-    $scope.coolKidsClubAccounts = [];
 
     var CheckAccounts = function ()
     {
@@ -279,16 +360,20 @@ function SearchResultsController($scope, $resource, PersonModel)
     var GetFacebookAccounts = function ()
     {
         console.log("Check facebook accounts");
-        if (IsStringNullOrEmpty($scope.person.FacebookAccount) === false)
-        {
-            $scope.facebookAccounts = [];
+        //if (IsStringNullOrEmpty($scope.person.FacebookAccount) === false)
+        //{
+        //    $scope.facebookAccounts = [];
 
-            // Find single account
-        }
-        else {
-            // Widen Search Range
-            console.log("No Facebook handle provided");
-        }
+        //    // Find single account
+        //    fbAsyncInit();
+        //}
+        //else {
+        //    // Widen Search Range
+        //    console.log("No Facebook handle provided");
+        //    fbAsyncInit();
+        //}
+
+        fbAsyncInit();     
     }
 
     var GetInstagramAccounts = function ()
@@ -335,7 +420,6 @@ function SearchResultsController($scope, $resource, PersonModel)
     {
         coolKidsClubUsers.query({},
             function (data) {
-                console.log(data);
                 $scope.coolKidsClubAccounts = data;
 
                 calculateMatchPercentages($scope.coolKidsClubAccounts);

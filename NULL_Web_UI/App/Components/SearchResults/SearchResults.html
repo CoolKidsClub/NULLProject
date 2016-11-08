@@ -1,20 +1,30 @@
 ﻿<div class="container">
     <ul class="nav nav-pills">
         <li ng-class="{ active:tabIsSet(1) }">
-            <a href="" ng-click="setTab(1)">Facebook - {{facebookAccounts.length}}</a>
+            <a href="" ng-click="setTab(1)">Cool Kids Clubs - {{coolKidsClubAccounts.length}}</a>
         </li>
         <li ng-class="{ active:tabIsSet(2) }">
-            <a href="" ng-click="setTab(2)">Instagram - {{instagramAccounts.length}}</a>
+            <a href="" ng-click="setTab(2)">Facebook - {{facebookAccounts.length}}</a>
         </li>
         <li ng-class="{ active:tabIsSet(3) }">
-            <a href="" ng-click="setTab(3)">Twitter - {{twitterAccounts.length}}</a>
+            <a href="" ng-click="setTab(3)">Instagram - {{instagramAccounts.length}}</a>
         </li>
         <li ng-class="{ active:tabIsSet(4) }">
-            <a href="" ng-click="setTab(4)">Cool Kids Clubs - {{coolKidsClubAccounts.length}}</a>
+            <a href="" ng-click="setTab(4)">Twitter - {{twitterAccounts.length}}</a>
         </li>
+
     </ul>
 
     <div ng-show="tabIsSet(1)">
+        <h2>Cool Kids Club Accounts</h2>
+        <div class="list-group">
+            <div class="list-group-item" ng-repeat="account in coolKidsClubAccounts | orderBy: '-MatchPercentage'">
+                <person-tab></person-tab>
+                <p />
+            </div>
+        </div>
+    </div>
+    <div ng-show="tabIsSet(2)">
         <h2>Facebook Accounts</h2>
         <div class="list-group">
             <div class="list-group-item" ng-repeat="account in facebookAccounts | orderBy: '-MatchPercentage'">
@@ -22,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div ng-show="tabIsSet(2)">
+    <div ng-show="tabIsSet(3)">
         <h2>Instagram Accounts</h2>
         <div class="list-group">
             <div class="list-group-item" ng-repeat="account in instagramAccounts | orderBy: '-MatchPercentage'">
@@ -30,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div ng-show="tabIsSet(3)">
+    <div ng-show="tabIsSet(4)">
         <h2>Twitter Accounts</h2>
         <div class="list-group">
             <div class="list-group-item" ng-repeat="account in twitterAccounts | orderBy: '-MatchPercentage'">
@@ -38,13 +48,5 @@
             </div>
         </div>
     </div>
-    <div ng-show="tabIsSet(4)">
-        <h2>Cool Kids Club Accounts</h2>
-        <div class="list-group">
-            <div class="list-group-item" ng-repeat="account in coolKidsClubAccounts | orderBy: '-MatchPercentage'">
-                <person-tab></person-tab>
-                <p/>
-            </div>
-        </div>
-    </div>
+
 </div>
